@@ -1,5 +1,19 @@
+# src/simplify.py
 
+def simplify_path(path: str) -> str:
+    """
+    Simplify a Unix-style absolute path.
+    """
+    parts = path.split('/')
+    stack = []
 
-def simplify_path(path):
-    # TODO: use a stack of directory names to normalize an absolute path
-    raise NotImplementedError
+    for part in parts:
+        if part == '' or part == '.':
+            continue
+        elif part == '..':
+            if stack:
+                stack.pop()
+        else:
+            stack.append(part)
+
+    return '/' + '/'.join(stack)
